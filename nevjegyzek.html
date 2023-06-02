@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<meta charset="utf-8" />	
+	
+	<title>IRM és Fm. igazolvány ellenőrző</title>
+
+	<link rel="icon" type="image/png" href="https://em-content.zobj.net/thumbs/240/google/350/face-without-mouth_1f636.png">
+
+	<style>
+		body { font-family:sans-serif; background-color:whitesmoke; }
+		table { width:100%; margin-top:10px; margin-left:auto; margin-right:auto; border-collapse:collapse; }
+		caption { background-color:moccasin }
+		td, th { padding:3px }
+		table, caption, th, td { border:1px solid gray; }
+		tr:nth-child(even) {background-color:#fff}
+		tr:nth-child(odd) {background-color:#eee}
+		th { background-color:cornsilk; align: left }
+		tr:not(:nth-of-type(1)):hover { background-color: azure; }
+		//tr td:hover { font-weight:bold; }
+		label, input, select, option { font-family:verdana,sans-serif; font-size:large; }
+		form { border:1px solid lightgray; background-color:lavender; padding:10px; }
+		h3 { margin-bottom:10px; margin-top:30px; background-color:orange; padding: 5px; }
+	</style>
+
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+	<script>
+
+	/*function valtozas() {
+	  var megye = $("#megye").val();
+	  //var anyag = $("input:radio[name=anyag]:checked").val();
+	  //var intezmenyID = $("#intezmeny").val();
+	  var veletlen    = Math.random;
+	  $.get("http://localhost/37.php?megye=".$megye,
+			{ megye:megye, sid:veletlen },
+			function(valasz) { $("#tablahely").html(valasz); }
+	  );
+	} //valtozas*/
+
+	function get_irm() {
+		var nev = $("#nev").val();
+		var megye = $("#megye").val();
+		var formatum = $("#formatum").val();
+		var veletlen = Math.random;
+		$.get("nevjegyzek.php",
+			{ tipus:'irm', nev:nev, megye:megye, formatum:formatum, sid:veletlen },
+			function(valasz) { $("#irm").html(valasz); }
+		);
+		$.get("nevjegyzek.php",
+			{ tipus:'fmig', nev:nev, megye:megye, formatum:formatum, sid:veletlen },
+			function(valasz) { $("#fmig").html(valasz); }
+		);
+
+		//check();
+
+		var date = new Date();
+		$('#t').text( date );
+		/*var current_date = date.getFullYear()+"."+( date.getMonth()<=9 ? '0'+(date.getMonth()+1) :date.getMonth()+1 )+"."+date.getDate()+".";
+		$('#t1').text( current_date );*/
+
+		var table_counter=0;
+		while ( document.getElementsByTagName("table")[table_counter] ) { ++table_counter	}
+		$('#t1').text( 'tables: '+table_counter );
+		for ( let j = 0; j < table_counter; j++ ) {
+			let table = document.getElementsByTagName("table")[j];
+			for ( let i = 1; i <  table.rows.length; i++ ) {
+				let lejarat = new Date( table.rows[i].cells[8].innerText.replace(/\.$/,'').replace(/\./g,'-') );
+				if ( /*! Number.isNaN(lejarat.getTime()) &&*/ ( ( date.getTime() - lejarat.getTime() ) / (1000 * 60 * 60 * 24) ) > -180 ) {
+					table.rows[i].cells[8].style.color='red';
+					$('#t2').text( ( date.getTime() - lejarat.getTime() ) / (1000 * 60 * 60 * 24) );
+				}
+				if ( /*! Number.isNaN(lejarat.getTime()) &&*/ date.getTime() > lejarat.getTime() ) {
+					table.rows[i].cells[8].style.backgroundColor='red';
+					table.rows[i].cells[8].style.color='yellow';
+				}
+			}
+		}
+	 
+	} //get_irm
+
+	function check() {
+	} // check
+
+	$(document).ready(function() {
+		//$("td:contains('37/')").css("color","blue");
+		//$("td:contains('BK/')").css("color","green").css("background","lightyellow");
+		$("#megye").change(get_irm);
+		//$("#nev").change(get_irm);
+		//$("#megye").keyup(get_irm);
+		$("#nev").keyup(get_irm);
+	});
+
+	</script>
+
+</head>
+<body>
+
+	<form>
+		<label for='nev'>
+			Név:
+			<input type='text' id='nev' name='nev' value='' />
+		</label>
+		&nbsp
+		<label for='megye'>
+			Megye:
+			<select id='megye' name='megye' size='1'>
+			<option value='Mindenhol'>Mindenhol keressen</option>
+			<option value='1'>Budapest</option>
+			<option value='2'>Baranya</option>
+			<option value='3' selected=''>Bács-Kiskun</option>
+			<option value='4'>Békés</option>
+			<option value='5'>Borsod-Abaúj-Zemplén</option>
+			<option value='6'>Csongrád-Csanád</option>
+			<option value='7'>Fejér</option>
+			<option value='8'>Győr-Moson-Sopron</option>
+			<option value='9'>Hajdú-Bihar</option>
+			<option value='10'>Heves</option>
+			<option value='16'>Jász-Nagykun-Szolnok</option>
+			<option value='11'>Komárom-Esztergom</option>
+			<option value='12'>Nógrád</option>
+			<option value='13'>Pest</option>
+			<option value='14'>Somogy</option>
+			<option value='15'>Szabolcs-Szatmár-Bereg</option>
+			<option value='17'>Tolna</option>
+			<option value='18'>Vas</option>
+			<option value='19'>Veszprém</option>
+			<option value='20'>Zala</option>		
+			</select>
+		</label>
+		<!--input type='submit' value='Muti'-->
+	</form>
+	<h3>Ingatlanrendezői névjegyzék publikus változata</h3>
+	<div id='irm' name='irm'><tr><td>&nbsp;</div>
+	<h3>Az aktuális földmérő igazolványok publikus listája</h3>
+	<div id='fmig' name='fmig'><tr><td>&nbsp;</div>
+
+	<!--span id='t'>...</span><br>
+	<span id='t1'>...</span><br>
+	<span id='t2'>...</span><br-->
+	
+</body>
+</html>
+
+
+
+
+
+
