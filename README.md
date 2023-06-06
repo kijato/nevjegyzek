@@ -1,13 +1,11 @@
 # Keresés a "Lechner-es" névjegyzékekben
 
-## Miért született ez a "webalkalmazás"...? 
-
 Aki napi szinten keresgél az "[ingatlanrendezői névjegyzék publikus változatában](https://lechnerkozpont.hu/oldal/ingatlanrendezoi-nevjegyzek-publikus-valtozata), vagy [az aktuális földmérő igazolványok publikus listájában](https://lechnerkozpont.hu/oldal/foldmero-igazolvanyok-publikus-listaja), az nap, mint nap többször is szembesül azzal, hogy a két jegyzékben történő azonos paraméterek szerinti, párhuzamos keresgélés egyáltalán nem hatékony.
-Ennkek a kezelésére született az itt bemutatott megoldás, mely a két jegyzékben párhuzamosan keres és az oldalak által adott eredméynt egyetlen lapon megjeleníti.
+Ennek a problémának a kezelésére született az itt bemutatott megoldás, mely a két jegyzékben párhuzamosan keres és az oldalak által adott eredményt egyetlen lapon megjeleníti.
 
 ## Előfeltételek
 
-A webalkalmazás működéséhez gyakorlatilag csak egy "PHP képes" webszerverre van szükség. Talán a legegyszerűbb lehetőség erre a [XAMPPP](https://www.apachefriends.org/hu/index.html) letöltése és telepítése, mely során elegendő az Apache és a PHP összetevőt megjelölni. *(Amennyiben az adott gépen felhasználóként nincs jogosultság programok telepítésre, használahatóak a "portable" verziók is.)*
+A webalkalmazás működéséhez gyakorlatilag csak egy "PHP képes" webszerverre van szükség. Talán a legegyszerűbb lehetőség erre a [XAMPPP](https://www.apachefriends.org/hu/index.html) letöltése és telepítése, mely során elegendő az Apache és a PHP összetevőt megjelölni. *(Amennyiben az adott gépen felhasználóként nincs jogosultság programok telepítésre, használhatóak a "portable" verziók is.)*
 Fontos tudni, hogy az alkalmazás igényli a php.ini-ben a következő beállításokat:
 * "allow_url_fopen = On" *(Ennek hiányában "Failed to open stream: No such file or directory in ..." hibaüzenetet kapunk)*
 * "extension=openssl" sor aktiválása *(Feltéve, hogy https protokolt is szeretnénk használni, mert ennek hiányában "Unable to find the wrapper 'https'..." hibaüzenetet kapunk)*
