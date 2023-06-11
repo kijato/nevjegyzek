@@ -36,9 +36,10 @@ $context  = stream_context_create($options);
 $result = file_get_contents($url, false, $context);
 $result = strtr($result,
 					array (
-						'/portal/images/kepek/sablonhoz/kukac_ltk.gif'=>'https://www.fomi.hu/portal/images/kepek/sablonhoz/kukac_ltk.gif',
+						//'/portal/images/kepek/sablonhoz/kukac_ltk.gif'=>'https://www.fomi.hu/portal/images/kepek/sablonhoz/kukac_ltk.gif',
+						//'<img style="margin: 0px; vertical-align: bottom;" src="/portal/images/kepek/sablonhoz/kukac_ltk.gif">'=>'@',
 						'Újabb keresés'=>'',
-						'https://lechnerkozpont.hu/themes/bootstrap_barrio/subtheme/css/colors.css?qdti4c'=>''
+						'https://lechnerkozpont.hu/themes/bootstrap_barrio/subtheme/css/colors.css?qdti4c'=>'',
 					)
 				);
 
@@ -113,7 +114,7 @@ switch ($formatum) {
 
 /*
 
-#  Fatal error: Uncaught Error: Call to undefined function curl_init() in D:\srv\httpd-2.4.54-win64-VS16\htdocs\nevjegyzek.php:30 Stack trace: #0 {main} thrown in D:\srv\httpd-2.4.54-win64-VS16\htdocs\nevjegyzek.php on line 30
+#  Fatal error: Uncaught Error: Call to undefined function curl_init() in ..\nevjegyzek.php:30 Stack trace: #0 {main} thrown in D:\srv\httpd-2.4.54-win64-VS16\htdocs\nevjegyzek.php on line 30
 
 $url = 'https://www.fomi.hu/portal/foldmerok/irm_lekerdezese_iframe.php';
 $myvars = 'nev='.$nev.'&'.'megye='.$megye;

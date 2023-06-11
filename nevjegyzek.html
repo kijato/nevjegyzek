@@ -22,38 +22,43 @@
 		label, input, select, option { font-family:verdana,sans-serif; font-size:large; }
 		form { border:1px solid lightgray; background-color:lavender; padding:10px; }
 		h3 { margin-bottom:10px; margin-top:30px; background-color:orange; padding: 5px; }
+		#megjegyzes { font-size:x-small; float:right; }
+		a { text-decoration: none; }
 	</style>
 
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
 	<script>
 
-	/*function valtozas() {
-	  var megye = $("#megye").val();
-	  //var anyag = $("input:radio[name=anyag]:checked").val();
-	  //var intezmenyID = $("#intezmeny").val();
-	  var veletlen    = Math.random;
-	  $.get("http://localhost/37.php?megye=".$megye,
-			{ megye:megye, sid:veletlen },
-			function(valasz) { $("#tablahely").html(valasz); }
-	  );
-	} //valtozas*/
-
-	function get_irm() {
+	function get_irm()
+	{
 		var nev = $("#nev").val();
 		var megye = $("#megye").val();
 		var formatum = $("#formatum").val();
 		var veletlen = Math.random;
 		$.get("nevjegyzek.php",
 			{ tipus:'irm', nev:nev, megye:megye, formatum:formatum, sid:veletlen },
-			function(valasz) { $("#irm").html(valasz); }
+			function(valasz) {
+				$("#irm").html(valasz);
+				check();
+			}
 		);
 		$.get("nevjegyzek.php",
 			{ tipus:'fmig', nev:nev, megye:megye, formatum:formatum, sid:veletlen },
-			function(valasz) { $("#fmig").html(valasz); }
+			function(valasz) {
+				$("#fmig").html(valasz);
+				check();
+			}
 		);
+	} //get_irm
 
-		//check();
+	function check()
+	{
+		//$("img[src='/portal/images/kepek/sablonhoz/kukac_ltk.gif']").html('@');
+		//if ( document.getElementsByTagName("img").src == '/portal/images/kepek/sablonhoz/kukac_ltk.gif') ;
+		$.each($("img[src='/portal/images/kepek/sablonhoz/kukac_ltk.gif']"), function(){
+			$(this).replaceWith('@');
+		});
 
 		var date = new Date();
 		$('#t').text( date );
@@ -66,24 +71,25 @@
 		for ( let j = 0; j < table_counter; j++ ) {
 			let table = document.getElementsByTagName("table")[j];
 			for ( let i = 1; i <  table.rows.length; i++ ) {
+			
+				table.rows[i].cells[3].innerText = table.rows[i].cells[3].innerText.replace(/ /g,'');
+			
 				let lejarat = new Date( table.rows[i].cells[8].innerText.replace(/\.$/,'').replace(/\./g,'-') );
-				if ( /*! Number.isNaN(lejarat.getTime()) &&*/ ( ( date.getTime() - lejarat.getTime() ) / (1000 * 60 * 60 * 24) ) > -180 ) {
-					table.rows[i].cells[8].style.color='red';
-					$('#t2').text( ( date.getTime() - lejarat.getTime() ) / (1000 * 60 * 60 * 24) );
+				if ( ( ( date.getTime() - lejarat.getTime() ) / (1000 * 60 * 60 * 24) ) > -30 ) {
+					//table.rows[i].cells[8].style.color='red';
+					table.rows[i].style.color='red';
 				}
-				if ( /*! Number.isNaN(lejarat.getTime()) &&*/ date.getTime() > lejarat.getTime() ) {
+				if ( date.getTime() > lejarat.getTime() ) {
 					table.rows[i].cells[8].style.backgroundColor='red';
 					table.rows[i].cells[8].style.color='yellow';
 				}
 			}
 		}
-	 
-	} //get_irm
-
-	function check() {
+		
 	} // check
 
-	$(document).ready(function() {
+	$(document).ready(function()
+	{
 		//$("td:contains('37/')").css("color","blue");
 		//$("td:contains('BK/')").css("color","green").css("background","lightyellow");
 		$("#megye").change(get_irm);
@@ -130,15 +136,12 @@
 			</select>
 		</label>
 		<!--input type='submit' value='Muti'-->
+		<span id='megjegyzes'><sup>*</sup>Piros színnel jelennek meg azok a sorok, melyeknél az érvéneyesség végéig kevesebb van 30 napnál.</span>
 	</form>
-	<h3>Ingatlanrendezői névjegyzék publikus változata</h3>
+	<h3>Ingatlanrendezői névjegyzék publikus változata<a href="https://lechnerkozpont.hu/oldal/ingatlanrendezoi-nevjegyzek-publikus-valtozata">*</a></h3>
 	<div id='irm' name='irm'><tr><td>&nbsp;</div>
-	<h3>Az aktuális földmérő igazolványok publikus listája</h3>
+	<h3>Az aktuális földmérő igazolványok publikus listája<a href="https://lechnerkozpont.hu/oldal/foldmero-igazolvanyok-publikus-listaja">*</a></h3>
 	<div id='fmig' name='fmig'><tr><td>&nbsp;</div>
-
-	<!--span id='t'>...</span><br>
-	<span id='t1'>...</span><br>
-	<span id='t2'>...</span><br-->
 	
 </body>
 </html>
