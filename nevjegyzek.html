@@ -19,11 +19,16 @@
 		th { background-color:cornsilk; align: left }
 		tr:not(:nth-of-type(1)):hover { background-color: azure; }
 		//tr td:hover { font-weight:bold; }
-		label, input, select, option { font-family:verdana,sans-serif; font-size:large; }
-		form { border:1px solid lightgray; background-color:lavender; padding:10px; }
+		label, input, select, option { font-family:verdana,sans-serif; font-size:large }
+		label { display:inline-block; }
+		form { border:1px solid lightgray; background-color:lavender; padding:10px; display:inline-block; }
 		h3 { margin-bottom:10px; margin-top:30px; background-color:orange; padding: 5px; }
-		#megjegyzes { font-style: italic; font-size:x-small; float:right; }
 		a { text-decoration: none; }
+		ul { margin:0px; padding-left:5px; }
+		li { padding-top:2px; line-height:normal; }
+		legend { border:1px solid lightgray; }
+		#megjegyzes { font-style: italic; font-size:x-small; float:right; width:auto; }
+		#lista { display:none; }
 	</style>
 
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -47,6 +52,13 @@
 			{ tipus:'fmig', nev:nev, megye:megye, formatum:formatum, sid:veletlen },
 			function(valasz) {
 				$("#fmig").html(valasz);
+				check();
+			}
+		);
+		$.get("geoszaki.php",
+			{ nev:nev, sid:veletlen },
+			function(valasz) {
+				$("#geoszaki").html(valasz);
 				check();
 			}
 		);
@@ -87,6 +99,17 @@
 		}
 		
 	} // check
+	
+	function megjegyzes_ki_be_kapcsolas()
+	{
+		if ( $("#ki_be").is(":checked") ) {
+			$("#megjegyzes").attr("width","50%");
+			$("#lista").show();
+		} else {
+			$("#lista").hide();
+			//$("#megjegyzes").attr("width","auto");
+		}
+	} // megjegyzes_ki_be_kapcsolas
 
 	$(document).ready(function()
 	{
@@ -96,6 +119,7 @@
 		//$("#nev").change(get_irm);
 		//$("#megye").keyup(get_irm);
 		$("#nev").keyup(get_irm);
+		$("#ki_be").change(megjegyzes_ki_be_kapcsolas);
 	});
 
 	</script>
@@ -135,13 +159,25 @@
 			<option value='20'>Zala</option>		
 			</select>
 		</label>
+		&nbsp
 		<!--input type='submit' value='Muti'-->
-		<span id='megjegyzes'>(Piros színnel jelennek meg azok a sorok, melyeknél az érvéneyesség végéig kevesebb van 30 napnál.)</span>
+		<fieldset id='megjegyzes'>
+			<legend><input id="ki_be" type="checkbox"> Megjegyzések:</legend>
+			<ul id="lista">
+				<li>A keresés a név mezőben minden gombnyomás, illetve a megye módosítása esetén automatikusan elindul. <i>(Országos méretű keresés esetén légy türelmes...!)</i>
+				<li>Piros színnel jelennek meg azok a sorok, melyeknél az érvéneyesség végéig kevesebb van 30 napnál.
+			</ul>
+		</fieldset>
 	</form>
-	<h3>Ingatlanrendezői névjegyzék publikus változata<a href="https://lechnerkozpont.hu/oldal/ingatlanrendezoi-nevjegyzek-publikus-valtozata">*</a></h3>
-	<div id='irm' name='irm'><tr><td>&nbsp;</div>
+
 	<h3>Az aktuális földmérő igazolványok publikus listája<a href="https://lechnerkozpont.hu/oldal/foldmero-igazolvanyok-publikus-listaja">*</a></h3>
 	<div id='fmig' name='fmig'><tr><td>&nbsp;</div>
+
+	<h3>Ingatlanrendezői névjegyzék publikus változata<a href="https://lechnerkozpont.hu/oldal/ingatlanrendezoi-nevjegyzek-publikus-valtozata">*</a></h3>
+	<div id='irm' name='irm'><tr><td>&nbsp;</div>
+
+	<h3>GEOSZAKI<a href="https://geoszaki-portal.eing.foldhivatal.hu/szakertok">*</a></h3>
+	<div id='geoszaki' name='geoszaki'><tr><td>&nbsp;</div>
 	
 </body>
 </html>
