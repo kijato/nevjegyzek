@@ -1,7 +1,9 @@
-# Keresés a "Lechner-es" névjegyzékekben
+# Keresés a "Lechner-es" névjegyzékekben és a GEOSZAKI-ban
 
-Aki napi szinten keresgél az "[ingatlanrendezői névjegyzék publikus változatában](https://lechnerkozpont.hu/oldal/ingatlanrendezoi-nevjegyzek-publikus-valtozata), vagy [az aktuális földmérő igazolványok publikus listájában](https://lechnerkozpont.hu/oldal/foldmero-igazolvanyok-publikus-listaja), az nap, mint nap többször is szembesül azzal, hogy a két jegyzékben történő azonos paraméterek szerinti, párhuzamos keresgélés egyáltalán nem hatékony.
-Ennek a problémának a kezelésére született az itt bemutatott megoldás, mely a két jegyzékben párhuzamosan keres és az oldalak által adott eredményt egyetlen lapon megjeleníti.
+Aki napi szinten keresgél az [ingatlanrendezői névjegyzék publikus változatában](https://lechnerkozpont.hu/oldal/ingatlanrendezoi-nevjegyzek-publikus-valtozata), vagy [az aktuális földmérő igazolványok publikus listájában](https://lechnerkozpont.hu/oldal/foldmero-igazolvanyok-publikus-listaja), az nap, mint nap többször is szembesül azzal, hogy a két jegyzékben történő azonos paraméterek szerinti, párhuzamos keresgélés egyáltalán nem hatékony.
+Hasonlóan problémás az [E-Ing földmérői névjegyzéke](geoszaki-portal.eing.foldhivatal.hu/), melyből sajnos nem derül ki a keresést követően azonnal, hogy az adott jogosultság, mettől, meddig érvényes. Ehhez az információhoz még legalább 2 kattintás szükséges *(miközben az adatok már a böngészőben vannak, a szem elől elrejtve)*, a túlzottan szellős megjelenítés miatti potenciális csúszka-használat mellett. *(Érthetetlen, hogy a weboldal megjelenése, miért nem alkalmazkodik a megjelenítőhőz...?)*
+
+Ezen a problémának a kezelésére született az itt bemutatott megoldás, mely az első két jegyzékben párhuzamosan keres, a harmadikban egy lépésben mutatja az adatokat, majd az oldalak által adott eredményt egyetlen lapon megjeleníti.
 
 ## Előfeltételek
 
