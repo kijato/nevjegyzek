@@ -5,6 +5,8 @@ Hasonlóan problémás az [E-Ing földmérői névjegyzéke](geoszaki-portal.ein
 
 Ezen a problémának a kezelésére született az itt bemutatott megoldás, mely az első két jegyzékben párhuzamosan keres, a harmadikban egy lépésben mutatja az adatokat, majd az oldalak által adott eredményt egyetlen lapon megjeleníti.
 
+Az alkalmazás ki is próbálható a [http://kjt.nhely.hu/nevjegyzek](http://kjt.nhely.hu/nevjegyzek) oldalon.
+
 ## Előfeltételek
 
 A webalkalmazás működéséhez gyakorlatilag csak egy "PHP képes" webszerverre van szükség. Ennek beszerzésére az egyik legegyszerűbb lehetőség, a jelen oldalon lévő [Releases](https://github.com/kijato/nevjegyzek/releases) szekcióban elérhető minimalista futtatókörnyezet letöltése, de a teljes körű [XAMPP](https://www.apachefriends.org/)-pal is működnie kell az alkalmazásnak. Ez utóbbi telepítése során elegendő az Apache és a PHP összetevőt megjelölni. 
